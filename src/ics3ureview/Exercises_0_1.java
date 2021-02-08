@@ -3,7 +3,7 @@ package ics3ureview;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class _0_1 {
+public class Exercises_0_1 {
 	public static void main(String[] args) throws Exception {
 		
 		BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
