@@ -8,7 +8,8 @@ public class Exercises_0_1 {
 		
 		BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
 
-		// 1. Trace through the following code segments and illustrate the output and memory.
+		// 1. Trace through the following code segments and illustrate the
+		//    output and memory.
 
 		// a = 3
 		// b = 9
@@ -25,7 +26,10 @@ public class Exercises_0_1 {
 		// res = num + 3
 		// print(res)
 
-		// 2. Write a program that asks the user for three float values, then computes and prints the mean, or average. (Don’t worry about the print formatting at this point). eg. User enters 12, 33.4, and 22.1; the mean is (12 + 33.4 + 22.1) / 3 = 22.5
+		// 2. Write a program that asks the user for three float values, then
+		//    computes and prints the mean, or average. (Don’t worry about the
+		//    print formatting at this point). eg. User enters 12, 33.4, and
+		//    22.1; the mean is (12 + 33.4 + 22.1) / 3 = 22.5
 
 		// CODE
 		double sum = 0;
@@ -34,9 +38,12 @@ public class Exercises_0_1 {
 		}
 		System.out.println("Mean: " + sum/3);
 
-		// A fast food restaurant charges $1.69 for burgers, $1.09 for fries, and $0.99 for a drink. Make sure to use constants.
-		// Write a point-of-sale program that prompts the employee for the number of burgers, fries, and drinks and then displays the subtotal, the PST (8%), the GST (5%), and the total.
-		// Modify the program to prompt the employee for the amount tendered and then display the change due.
+		// A fast food restaurant charges $1.69 for burgers, $1.09 for fries,
+		// and $0.99 for a drink. Make sure to use constants. Write a
+		// point-of-sale program that prompts the employee for the number of
+		// burgers, fries, and drinks and then displays the subtotal, the PST
+		// (8%), the GST (5%), and the total. Modify the program to prompt the
+		// employee for the amount tendered and then display the change due.
 		// (Again, don’t worry about print formatting at this point.)
 
 		// CODE
@@ -60,7 +67,10 @@ public class Exercises_0_1 {
 		double change = total-tender;
 		System.out.println("Change Due: $" + change);
 
-		// Write a program that asks the user for a three-digit integer, finds the sum of the digits of the number, and prints both the number and its digit sum. You must store the number as int and may not convert to str. (No need to check for incorrect input.) 
+		// Write a program that asks the user for a three-digit integer, finds
+		// the sum of the digits of the number, and prints both the number and
+		// its digit sum. You must store the number as int and may not convert
+		// to str. (No need to check for incorrect input.) 
 		// eg. User inputs 123; sum of digits is 1 + 2 + 3 = 6
 
 		// CODE
