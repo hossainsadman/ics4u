@@ -11,7 +11,7 @@ public class SortThreeLetters {
 
         Scanner s = new Scanner(System.in);
 
-        System.out.println("Enter 3 letters:");
+        System.out.println("Enter a single letter followed by 'Enter':");
         char char1 = s.nextLine().charAt(0);
         char char2 = s.nextLine().charAt(0);
         char char3 = s.nextLine().charAt(0);
@@ -35,6 +35,9 @@ public class SortThreeLetters {
             }
         }
 
-        System.out.println(first + " " + second + " " + third);
+        System.out.println("Your letters in alphabetical order: ");
+        System.out.print(first + " " + second + " " + third);
+
+        s.close();
     }
 }
