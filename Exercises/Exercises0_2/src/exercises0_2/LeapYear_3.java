@@ -1,9 +1,15 @@
-package ics3ureview._0_2exercises;
+package exercises0_2;
 
 import java.util.Scanner;
 
-public class LeapYear {
+/**
+ *
+ * @author Sadman
+ */
+public class LeapYear_3 {
+
     public static void main(String[] args) {
+
         // 3. A leap year is one with 366 days instead of 365. Write a program
         //    to determine whether a particular year is a leap year. Recall that
         //    a year is a leap year if it is divisible by 4. But if the year is
@@ -23,4 +29,5 @@ public class LeapYear {
 
         s.close();
     }
+
 }

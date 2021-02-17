@@ -1,10 +1,14 @@
-package ics3ureview._0_2exercises;
+package exercises0_2;
 
 import java.util.Scanner;
 
-public class LeastPowerOfTwo {
+/**
+ *
+ * @author Sadman
+ */
+public class LeastPowerOfTwo_2 {
+    
     public static void main(String[] args) {
-
         // 2. Write a program that reads a positive integer and then finds and
         //    prints the smallest power of two that is greater than or equal to
         //    the number that was given. For example, if the program reads the
@@ -24,4 +28,5 @@ public class LeastPowerOfTwo {
 
         s.close();
     }
+    
 }

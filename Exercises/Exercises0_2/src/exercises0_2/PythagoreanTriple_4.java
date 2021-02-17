@@ -1,8 +1,13 @@
-package ics3ureview._0_2exercises;
+package exercises0_2;
 
 import java.util.Scanner;
 
-public class PythagoreanTriple {
+/**
+ *
+ * @author Sadman
+ */
+public class PythagoreanTriple_4 {
+    
     public static void main(String[] args) {
         // 4. Three positive integers a, b, and c with a < b < c form a
         //    Pythagorean Triple if a^2 + b^2 = c^2.  For example (3, 4, 5) is a
@@ -37,4 +42,5 @@ public class PythagoreanTriple {
 
         s.close();
     }
+    
 }

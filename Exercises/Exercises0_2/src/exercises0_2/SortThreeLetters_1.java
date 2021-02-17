@@ -1,9 +1,14 @@
-package ics3ureview._0_2exercises;
+package exercises0_2;
 
 import java.util.Scanner;
 
-public class SortThreeLetters {
-    public static void main(String[] args) throws Exception {
+/**
+ *
+ * @author Sadman
+ */
+public class SortThreeLetters_1 {
+
+    public static void main(String[] args) {
         // 1. Write a program that prompts for three lower case letters
         //    separately (String). Assuming all inputs are valid, sort and
         //    output the three letters in alphabetical order, otherwise, output
@@ -40,4 +45,5 @@ public class SortThreeLetters {
 
         s.close();
     }
+    
 }
