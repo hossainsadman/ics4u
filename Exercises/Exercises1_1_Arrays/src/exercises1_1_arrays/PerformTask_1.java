@@ -1,6 +1,5 @@
 package exercises1_1_arrays;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
