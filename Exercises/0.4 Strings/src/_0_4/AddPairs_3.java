@@ -36,5 +36,7 @@ public class AddPairs_3 {
 
         System.out.print("Input: ");
         System.out.println("Output: " + addPairs(s.nextLine()));
+
+        s.close();
     }
 }
