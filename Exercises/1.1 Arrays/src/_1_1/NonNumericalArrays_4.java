@@ -8,76 +8,49 @@ import java.util.Scanner;
  */
 public class NonNumericalArrays_4 {
 
-    // 3. Write a program to complete the following tasks. Could write some
-    //    methods.
-
-    private static Scanner s = new Scanner(System.in);
-
     public static void main(String[] args) {
+
+        Scanner s = new Scanner(System.in);
+
+        // 4. Non-numerical arrays.
+
+        // a) Ask the user to enter a string. Add each character of the string
+        // to two different arrays: char[] and String[], e.g. "Java" → ['J',
+        // 'a', 'v', 'a'] and ["J", "a", "v", "a"] (Though when printed, both
+        // will look like [J, a, v, a])
+
+        // System.out.println("Enter a string: ");
+        // String str = s.nextLine();
+
+        // char[] charArray = str.toCharArray();
+        // String[] stringArray = new String[str.length()];
+        // for (int i = 0; i < str.length(); i++) {
+        //     stringArray[i] = Character.toString(charArray[i]);
+        // }
+
+        // System.out.println(stringArray.toString());
+        // System.out.println(charArray.toString());
+
+
+        // b) Get an integer n from the user and initialize a String array of
+        // length n. Ask the user to enter n strings and fill the array. Create
+        // a new string which is the elements of the array in order,
+        // concatenated with spaces between each element but not after the last
+        // string, e.g. ["All", "your", "base"] → "All your base"
+
         System.out.print("Enter an integer: ");
         int n = Integer.parseInt(s.nextLine());
-        System.out.println("Enter " + n + " integers separated by 'Enter': ");
-        double[] array = getArray(n);
-        sumAndAvg(array);
-        printArray(array);
-        System.out.println("Smallest: " + smallest(array));
-        System.out.println("Index of smallest: " + indexOfSmallest(array));
-    }
 
-    // a) Get an integer n from the user and initialize a double array of
-    // length n. Ask the user to enter n numbers, and fill the array with them
-    // in order.
-    private static double[] getArray(int n) {
-        double[] array = new double[n];
+        String[] stringArray2 = new String[n];
         for (int i = 0; i < n; i++) {
-            array[i] = Integer.parseInt(s.nextLine());
+            System.out.printf("Enter string %d: ", i+1);
+            stringArray2[i] = s.nextLine();
         }
-        return array;
-    }
 
-    // b) Calculate and print the sum and average of all the elements in the
-    // array.
-    private static void sumAndAvg(double[] array) {
-        int sum = 0;
-        for (double d : array) {
-            sum += d;
-        }
-        System.out.println("Sum: " + sum);
-        System.out.println("Average: " + sum/array.length);
-    }
+        String string = String.join(" ", stringArray2);
+        string.trim();
+        System.out.println(string);
 
-    // c) Print all the elements of the array “nicely”, without using the
-    // Arrays.toString() method. If the array was [3, 5, -4, 1], the print out
-    // should be exactly as: 3, 5, -4, 1 No brackets or braces, no extra commas
-    // at the end.
-    private static void printArray(double[] array) {
-        for (int i = 0; i < array.length-1; i++) {
-            System.out.print(array[i] + ", ");
-        }
-        System.out.print(array[array.length-1]);
-        System.out.println();
-    }
-
-    // d) Identify and print the smallest value of the array.
-    private static double smallest(double[] array) {
-        double smallest = 9999999;
-        for (double d : array) {
-            if (d < smallest) {
-                smallest = d;
-            }
-        }
-        return smallest;
-    }
-
-    // e) Identify and print the index of the smallest value (first occurence,
-    // if more than 1) of the array.
-    private static int indexOfSmallest(double[] array) {
-        double smallest = smallest(array);
-        for (int i = 0; i < array.length; i++) {
-            if (smallest == array[i]) {
-                return i;
-            }
-        }
-        return -1;
+        s.close();
     }
 }
