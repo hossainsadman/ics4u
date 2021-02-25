@@ -11,5 +11,13 @@ public class Main {
      */
     public static void main(String[] args) {
 
+        // 1. d) reduce
+        // Fraction f1 = new Fraction(123,45678);
+        // f1.reduce();
+        // System.out.println(f1.toString());
+
+        // 1. e) reciprocal
+        Fraction f2 = new Fraction(2,-1);
+        System.out.println(f2.reciprocal().toString());
     }
 }
