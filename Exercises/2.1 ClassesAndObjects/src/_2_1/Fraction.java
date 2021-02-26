@@ -34,10 +34,10 @@ public class Fraction {
     }
 
     // overriding Object.toString() method
-    @Override
-    public String toString() {
-        return numerator + "/" + denominator;
-    }
+    // @Override
+    // public String toString() {
+    //     return numerator + "/" + denominator;
+    // }
 
     public boolean greaterThan(Fraction other) {
         return toDouble() > other.toDouble();
@@ -220,25 +220,70 @@ public class Fraction {
         return multiply(other.reciprocal());
     }
 
-    // 2. Class Methods - Create class (static) methods sum, difference, and quotient. They should take two Fraction objects f1 and f2 as parameters, perform each operation and return a Fraction in lowest terms. (Hint: utilize existing methods)
+    // 2. Class Methods - Create class (static) methods sum, difference, and
+    //    quotient. They should take two Fraction objects f1 and f2 as
+    //    parameters, perform each operation and return a Fraction in lowest
+    //    terms. (Hint: utilize existing methods)
+
+    public static Fraction sum(Fraction f1, Fraction f2) {
+        return f1.add(f2);
+    }
+
+    public static Fraction difference(Fraction f1, Fraction f2) {
+        f2.numerator *= -1;
+        return f1.add(f2);
+    }
+
+    public static Fraction quotient(Fraction f1, Fraction f2) {
+        return f1.divide(f2);
+    }
 
     // 3. Overloaded Constructors - Add the following constructors to the
     //    Fraction class:
 
-    // - A constructor that takes a double number as parameter and constructs
-    //   the corresponding rational number, eg., 0.98 is 4950, -8.343 is
-    //   -83431000.
+    // a) A constructor that takes a double number as parameter and constructs
+    //   the corresponding rational number, eg., 0.98 is 49/50, -8.343 is
+    //   -8343/1000.
 
+    public Fraction(double d) {
+        // if (d % 1 != 0) {
+        // }
+        String double_ = Double.toString(d);
+        int decimal = double_.indexOf(".");
+        int decimalPlaces = double_.length() - decimal - 1;
+        numerator = (int) (d * Math.pow(10, decimalPlaces));
+        denominator = (int) Math.pow(10, decimalPlaces);
+        reduce();
+    }
 
-    // - A constructor that takes a single int value as parameter, and so
+    // b) A constructor that takes a single int value as parameter, and so
     //   assigns that to the numerator and the denominator to 1.
 
+    public Fraction(int i) {
+        numerator = i;
+        denominator = 1;
+    }
 
-    // - A constructor that takes no parameter and so initialises the fraction
+    // c) A constructor that takes no parameter and so initialises the fraction
     //   to 1.
 
+    public Fraction() {
+        numerator = 1;
+        denominator = 1;
+    }
 
     // 4. Printing - Modify the toString method to print zero fractions as
     //    simply 0 and fractions with a denominator of 1 as an integer.
+
+    @Override
+    public String toString() {
+        if (numerator == 0) {
+            return "0";
+        }
+        if (denominator == 1) {
+            return "1";
+        }
+        return numerator + "/" + denominator;
+    }
 
 }

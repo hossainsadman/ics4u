@@ -17,7 +17,11 @@ public class Main {
         // System.out.println(f1.toString());
 
         // 1. e) reciprocal
-        Fraction f2 = new Fraction(2,-1);
-        System.out.println(f2.reciprocal().toString());
+        // Fraction f2 = new Fraction(2,-1);
+        // System.out.println(f2.reciprocal().toString());
+
+        // 3. a) constructor using double
+        // Fraction f3 = new Fraction(3.1);
+        // System.out.println(f3.toString());
     }
 }
