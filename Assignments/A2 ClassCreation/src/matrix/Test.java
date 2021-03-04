@@ -10,7 +10,16 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        double[][] a = {
+            {1,2,3,4,5},
+            {3,4,6,7,8},
+            {3,4,6,7,8},
+            {3,4,6,7,8},
+            {3,4,6,7,8}
+        };
+        double[] b = {1,2,3,4};
+        Matrix m = new Matrix(b);
+        System.out.println(m.toString());
     }
 
 }
