@@ -34,10 +34,21 @@ public class Matrix {
         array[0] = row;
     }
 
+    public Matrix(Matrix m) {
+        this.rows = m.rows;
+        this.cols = m.cols;
+        this.array = m.array;
+    }
+
     @Override
 	public String toString() {
-        String str = "";
+        String str = "┌ ";
+        for (int i = 0; i < cols; i++) {
+            str += "  ";
+        }
+        str += "┐\n";
         for (int row = 0; row < rows; row++) {
+            str += "│ ";
             for (int col = 0; col < cols; col++) {
                 if ((int) array[row][col] == array[row][col]) {
                     str += (int) array[row][col] + " ";
@@ -45,21 +56,26 @@ public class Matrix {
                     str += array[row][col] + " ";
                 }
             }
-            str += "\n";
+            str += "│\n";
         }
-        return str.trim();
+        str += "└ ";
+        for (int i = 0; i < cols; i++) {
+            str += "  ";
+        }
+        str += "┘";
+        return str;
     }
 
-    int getNumOfRows() {
+    public int getNumOfRows() {
         return this.rows;
+    }
+
+    public int getNumOfCols() {
+        return this.cols;
     }
 
     void setRow(int row, double[] rowArray) {
         this.array[row] = rowArray;
-    }
-
-    int getNumOfCols() {
-        return this.cols;
     }
 
     void setCol(int col, double[] colArray) {
@@ -72,25 +88,17 @@ public class Matrix {
         array[row][col] = element;
     }
 
-    boolean equalDimensions(Matrix m) {
+    public boolean equalDimensions(Matrix m) {
         if (rows == m.rows && cols == m.cols) {
             return true;
         }
         return false;
     }
 
-    static boolean equalDimensions(Matrix m1, Matrix m2) {
-        if (m1.rows == m2.rows && m1.cols == m2.cols) {
-            return true;
-        }
-        return false;
-    }
-
-    boolean equals(Matrix m) {
+    public boolean equals(Matrix m) {
         if (!equalDimensions(m)) {
             return false;
         }
-
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 if (array[row][col] != m.array[row][col]) {
@@ -98,74 +106,27 @@ public class Matrix {
                 }
             }
         }
-
         return true;
     }
 
-    static boolean equals(Matrix m1, Matrix m2) {
-        if (!equalDimensions(m1, m2)) {
-            return false;
-        }
-
-        for (int row = 0; row < m1.rows; row++) {
-            for (int col = 0; col < m1.cols; col++) {
-                if (m1.array[row][col] != m2.array[row][col]) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    void add(double d) {
+    public Matrix add(double d) {
+        Matrix m = new Matrix(this);
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 array[row][col] += d;
             }
         }
-    }
-
-    void add(Matrix m) {
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                array[row][col] += m.array[row][col];
-            }
-        }
-    }
-
-    void subtract(double d) {
-        add(-d);
-    }
-
-    void subtract(Matrix m) {
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                array[row][col] -= m.array[row][col];
-            }
-        }
-    }
-
-    void multiply(double d) {
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                array[row][col] *= d;
-            }
-        }
-    }
-
-    static Matrix multiply(Matrix m1, Matrix m2) {
-        Matrix m = new Matrix(m1.rows, m2.cols);
-        for (int row = 0; row < m.rows; row++) {
-            for (int col = 0; col < m.cols; col++) {
-                m.setElement(row, col, m1.sumRow(row) + m2.sumCol(col));
-            }
-        }
         return m;
     }
 
-    void divide(double d) {
-        multiply(1/d);
+    public Matrix sum(Matrix m) {
+        Matrix sum = new Matrix(this);
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                sum.array[row][col] += m.array[row][col];
+            }
+        }
+        return sum;
     }
 
     double sumRow(int row) {
@@ -184,35 +145,52 @@ public class Matrix {
         return sum;
     }
 
-    boolean isSquare() {
+    public Matrix product(Matrix m) {
+        Matrix product = new Matrix(rows, m.cols);
+        for (int row = 0; row < product.rows; row++) {
+            for (int col = 0; col < product.cols; col++) {
+                product.setElement(row, col, sumRow(row) + m.sumCol(col));
+            }
+        }
+        return product;
+    }
+
+    public void plusEquals(double d) {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                array[row][col] += d;
+            }
+        }
+    }
+
+    public void plusEquals(Matrix m) {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                array[row][col] += m.array[row][col];
+            }
+        }
+    }
+
+    public void timesEquals(double d) {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                array[row][col] *= d;
+            }
+        }
+    }
+
+    public boolean isSquare() {
         if (rows == cols) {
             return true;
         }
         return false;
     }
 
-    static boolean isSquare(Matrix m) {
-        if (m.rows == m.cols) {
-            return true;
-        }
-        return false;
-    }
-
-    Matrix getTranspose() {
+    public Matrix getTranspose() {
         Matrix transpose = new Matrix(cols, rows);
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 transpose.setElement(col, row, array[row][col]);
-            }
-        }
-        return transpose;
-    }
-
-    static Matrix getTranspose(Matrix m) {
-        Matrix transpose = new Matrix(m.cols, m.rows);
-        for (int row = 0; row < m.rows; row++) {
-            for (int col = 0; col < m.cols; col++) {
-                transpose.setElement(col, row, m.array[row][col]);
             }
         }
         return transpose;

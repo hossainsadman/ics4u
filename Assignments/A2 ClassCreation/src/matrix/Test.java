@@ -18,8 +18,10 @@ public class Test {
             {3,4,6,7,8}
         };
         double[] b = {1,2,3,4};
-        Matrix m = new Matrix(b);
-        System.out.println(m.toString());
+        Matrix m = new Matrix(a);
+        System.out.println("Transpose:");
+        System.out.println(m.getTranspose().toString());
+
     }
 
 }
