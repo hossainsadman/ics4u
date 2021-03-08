@@ -40,16 +40,6 @@ public class Matrix {
         this.array = array;
     }
 
-    private double[][] copy2DArray(double[][] array) {
-        double[][] copy = new double[array.length][array[0].length];
-        for (int row = 0; row < array.length; row++) {
-            for (int col = 0; col < array[row].length; col++) {
-                copy[row][col] = array[row][col];
-            }
-        }
-        return copy;
-    }
-
     /**
      * Instantiate a matrix using a 1D array of doubles
      *
@@ -75,7 +65,26 @@ public class Matrix {
     }
 
     /**
+     * Copies the contents of a 2D array to another 2D array object
+     *
+     * @param array 2D array to be copied
+     *
+     * @return copy of the 2D array
+     */
+    private double[][] copy2DArray(double[][] array) {
+        double[][] copy = new double[array.length][array[0].length];
+        for (int row = 0; row < array.length; row++) {
+            for (int col = 0; col < array[row].length; col++) {
+                copy[row][col] = array[row][col];
+            }
+        }
+        return copy;
+    }
+
+    /**
      * Return a string representation of the matrix object (with box brackets).
+     *
+     * @return matrix as a string
      */
     @Override
     public String toString() {
@@ -166,10 +175,10 @@ public class Matrix {
      * Set the elements of a row in the matrix with elements from another 1D
      * array
      *
-     * @param row      index of the row to be set
+     * @param row index of the row to be set
      * @param rowArray 1D array containing the new elements of the row
      */
-    void setRow(int row, double[] rowArray) {
+    public void setRow(int row, double[] rowArray) {
         this.array[row] = rowArray;
     }
 
@@ -177,24 +186,23 @@ public class Matrix {
      * Set the elements of a column in the matrix with elements from another 1D
      * array
      *
-     * @param col      index of the column to be set
+     * @param col index of the column to be set
      * @param colArray 1D array containing the new elements of the column
      */
-    void setCol(int col, double[] colArray) {
+    public void setCol(int col, double[] colArray) {
         for (int row = 0; row < rows; row++) {
             array[row][col] = colArray[row];
-
         }
     }
 
     /**
      * Set the element in a specific row and column in the matrix
      *
-     * @param row     index of the row of the element
-     * @param col     index of the column of the element
+     * @param row index of the row of the element
+     * @param col index of the column of the element
      * @param element value of the element to be set
      */
-    void setElement(int row, int col, double element) {
+    public void setElement(int row, int col, double element) {
         array[row][col] = element;
     }
 
@@ -205,7 +213,7 @@ public class Matrix {
      * @param m another matrix that this matrix is being compared to
      *
      * @return whether the dimensions of this matrix is equal to the dimensions
-     *          of m
+     * of m
      */
     public boolean equalDimensions(Matrix m) {
         if (rows == m.rows && cols == m.cols) {
@@ -222,7 +230,7 @@ public class Matrix {
      * @param m another matrix that this matrix is being compared to
      *
      * @return whether the dimensions and elements of this matrix are equal to
-     *          that of m
+     * that of m
      */
     public boolean equals(Matrix m) {
         // if the matrices do not have the same dimensions, they cannot be
@@ -316,25 +324,6 @@ public class Matrix {
     }
 
     /**
-     * Return the product of this matrix with another matrix, whether the
-     * number of rows is equal to the number of rows of this matrix and the
-     * number of columns is equal to the number of rows of the other matrix
-     *
-     * @param m another matrix to be multiplied with this matrix
-     *
-     * @return product of the 2 matrices
-     */
-    public Matrix product(Matrix m) {
-        Matrix product = new Matrix(rows, m.cols);
-        for (int row = 0; row < product.rows; row++) {
-            for (int col = 0; col < product.cols; col++) {
-                product.setElement(row, col, sumRow(row) + m.sumCol(col));
-            }
-        }
-        return product;
-    }
-
-    /**
      * Add a constant to each element of the matrix
      *
      * @param d constant to be added to each element
@@ -375,6 +364,25 @@ public class Matrix {
                 array[row][col] *= d;
             }
         }
+    }
+
+    /**
+     * Return the product of this matrix with another matrix, whether the number
+     * of rows is equal to the number of rows of this matrix and the number of
+     * columns is equal to the number of rows of the other matrix
+     *
+     * @param m another matrix to be multiplied with this matrix
+     *
+     * @return product of the 2 matrices
+     */
+    public Matrix product(Matrix m) {
+        Matrix product = new Matrix(rows, m.cols);
+        for (int row = 0; row < product.rows; row++) {
+            for (int col = 0; col < product.cols; col++) {
+                product.setElement(row, col, sumRow(row) + m.sumCol(col));
+            }
+        }
+        return product;
     }
 
     /**
