@@ -1,7 +1,9 @@
+package _2_2;
+
 /**
- * Manages an employee's information, such as name, ID, yearly salary, and 
+ * Manages an employee's information, such as name, ID, yearly salary, and
  * number of sick days.
- * 
+ *
  * @author Student
  */
 public class Employee {
@@ -9,13 +11,13 @@ public class Employee {
     private String id;
     private int salary;
     private int sickDays;
-    
+
     /**
      * Constructor with name only. Do not assign other fields.
      * @param name Name of employee
      */
     public Employee(String name) {
-        // your code here
+        this.name = name;
     }
     /**
      * Constructor with name and employee ID only. Do not assign other fields.
@@ -23,9 +25,10 @@ public class Employee {
      * @param id ID of employee
      */
     public Employee(String name, String id) {
-        // your code here
+        this.name = name;
+        this.id = id;
     }
-    
+
     /**
      * Constructor with name, employee ID, salary, and sick days.
      * @param name Name of employee
@@ -34,55 +37,58 @@ public class Employee {
      * @param sickDays Number of sick days allocated
      */
     public Employee(String name, String id, int salary, int sickDays) {
-        // your code here
+        this.name = name;
+        this.id = id;
+        this.salary = salary;
+        this.sickDays = sickDays;
     }
-    
+
     /**
      * Gets the name of the employee
      * @return Employee name
      */
     public String getName() {
-        return null; // your code here
+        return name;
     }
-    
+
     /**
      * Sets the name of the employee
      * @param name Name of employee
      */
     public void setName(String name) {
-        // your code here
+        this.name = name;
     }
-    
+
     /**
      * Gets the ID of the employee
      * @return Employee ID
      */
     public String getId() {
-        return null; // your code here
-    } 
-    
+        return id;
+    }
+
     /**
      * Sets the ID code of the employee.
      * @param id Employee ID
      */
     public void setId(String id) {
-        // your code here
+        this.id = id;
     }
-    
+
     /**
      * Gets salary of employee
      * @return Employee salary
      */
     public int getSalary() {
-        return 0; // your code here
+        return salary;
     }
-    
+
     /**
      * Sets employee's salary (yearly)
      * @param salary Salary of employee
      */
     public void setSalary(int salary) {
-        // your code here
+        this.salary = salary;
     }
 
     /**
@@ -90,24 +96,29 @@ public class Employee {
      * @return number of sick days remaining
      */
     public int getSickDays() {
-        return 0; // your code here
+        return sickDays;
     }
-    
+
     /**
      * Sets the number of sick days.
      * @param sickDays number of sick days allocated
      */
     public void setSickDays(int sickDays) {
-        // your code here
+        this.sickDays = sickDays;
     }
 
     /**
-     * Override for toString method. 
+     * Override for toString method.
      * @return String of the employee's information formatted nicely
      */
     @Override
     public String toString() {
-        return null; // your code here
+        String str = "\nEmployee Information:";
+        str += "\n Name: " + name;
+        str += "\n ID: " + id;
+        str += "\n Salary: $" + salary;
+        str += "\n Sick Days: " + sickDays;
+        return str;
     }
-    
+
 }
