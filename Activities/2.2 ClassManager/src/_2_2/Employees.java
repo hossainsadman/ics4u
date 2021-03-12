@@ -66,10 +66,15 @@ public class Employees {
      */
     public void useSickDay(String nameOrID) {
         Employee e = getEmployee(nameOrID);
-        if (e != null && e.getSickDays() > 0) {
-            e.setSickDays(e.getSickDays() - 1);
+        if (e != null) {
+            if (e.getSickDays() > 0) {
+                System.out.println(nameOrID + " used a sick day.");
+                e.setSickDays(e.getSickDays() - 1);
+            } else {
+                System.out.println(nameOrID + " does not have enough sick days.");
+            }
         } else {
-            System.out.println(nameOrID + " does not have enough sick days.");
+            System.out.println(nameOrID + " is not an employee.");
         }
     }
 
@@ -84,6 +89,7 @@ public class Employees {
         Employee e = getEmployee(nameOrID);
         if (e != null) {
             e.setSalary(e.getSalary() + amount);
+            System.out.println(e.getName() + " new salary: $" + e.getSalary());
         } else {
             System.out.println(nameOrID + " is not an employee.");
         }
