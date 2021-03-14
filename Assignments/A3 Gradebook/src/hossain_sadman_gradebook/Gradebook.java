@@ -11,34 +11,7 @@ public class Gradebook {
 
     private static Scanner s = new Scanner(System.in);
 
-    public static void printStartUp() {
-        System.out.println("--------TDSB GRADEBOOK--------");
-        System.out.println("AUTHOR: Sadman Hossain");
-        System.out.println("------------------------------\n");
-    }
-
-    public static void menu() {
-        boolean exit = false;
-        while (true) {
-            System.out.println("------COMMANDS------");
-            System.out.println("1: Student Information");
-            System.out.println("2: Assignments");
-            System.out.println("3: Marks");
-            System.out.println("-----------------");
-            System.out.println("4: EXIT GRADEBOOK");
-
-            int command = inputPrompt("> ", "Invalid command! Please enter a command between 1 and 4.\n", 1, 4);
-
-            switch (command) {
-                case 4: System.out.println("Thank you for using TDSB GRADEBOOK!");
-                    break;
-            }
-
-            if (exit) {
-                break;
-            }
-        }
-    }
+    private static Course ics = new Course("Intro to CS", "ICS4U");
 
     private static int inputPrompt(String prompt, String errorMsg) {
         while (true) {
@@ -68,16 +41,65 @@ public class Gradebook {
         }
     }
 
+    public static void printStartUp() {
+        System.out.println("--------TDSB GRADEBOOK--------");
+        System.out.println("AUTHOR: Sadman Hossain");
+        System.out.println("------------------------------");
+    }
+
+    public static void menu() {
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("\n------COMMANDS------");
+            System.out.println("1: Students");
+            System.out.println("2: Assignments");
+            System.out.println("3: Marks");
+            System.out.println("-----------------");
+            System.out.println("4: EXIT GRADEBOOK");
+
+            int command = inputPrompt("> ", "Invalid command! Please enter a command between 1 and 4.\n", 1, 4);
+
+            switch (command) {
+                case 4: System.out.println("Thank you for using TDSB GRADEBOOK!");
+                    exit = true;
+                    break;
+            }
+        }
+    }
+
+    public static void students() {
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("\n----- <STUDENTS> -----");
+            System.out.println("1: List Students");
+            System.out.println("2: Add Students");
+            System.out.println("3: Demit Students");
+            System.out.println("4: View Student Info");
+            System.out.println("5: Edit Student Info");
+            System.out.println("-----------------");
+            System.out.println("0: GO BACK TO <TOOLS>");
+
+            int command = inputPrompt("> ", "Invalid command! Please enter a command between 0 and 5.\n", 0, 5);
+
+            switch (command) {
+                case 1: ics.printStudentAverages();
+                case 0: System.out.println("GOING BACK TO <TOOLS>...");
+                    exit = true;
+                    break;
+            }
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         printStartUp();
-        Student a = new Student("a", 1);
-        Student b = new Student("b", 2);
-        Student c = new Student("c", 3);
-        Student d = new Student("d", 4);
-        Student e = new Student("t", 1);
+        Student a = new Student("a", "1");
+        Student b = new Student("b", "2");
+        Student c = new Student("c", "3");
+        Student d = new Student("d", "4");
+        Student e = new Student("t", "1");
         ArrayList<Student> asd= new ArrayList<Student>();
         asd.add(a);
         asd.add(b);
@@ -86,7 +108,7 @@ public class Gradebook {
         asd.add(e);
         Course course = new Course("abcd", "12", asd);
         course.addAssignment();
-        course.setMark(a, 0, 56);
+        course.setMark("a", 0, 56);
         course.printAssignmentMarks(0);
         course.setAllMarks(0);
         course.addAssignment();

@@ -9,16 +9,16 @@ import java.util.ArrayList;
 public class Student {
 
     private String name;
-    private int id;
+    private String id;
     private ArrayList<Integer> marks;
 
-    public Student(String name, int id) {
+    public Student(String name, String id) {
         this.name = name;
         this.id = id;
         marks = new ArrayList<Integer>();
     }
 
-    public Student(String name, int id, ArrayList<Integer> marks) {
+    public Student(String name, String id, ArrayList<Integer> marks) {
         this.name = name;
         this.id = id;
         this.marks = marks;
@@ -32,11 +32,11 @@ public class Student {
 		this.name = name;
 	}
 
-	public int getId() {
+	public String getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -69,11 +69,10 @@ public class Student {
     }
 
     public void printAllMarks() {
-        String str = "MARKS FOR STUDENT: " + name + "\n";
+        System.out.printf("\nMARKS FOR STUDENT %s (%s):\n", name, id);
         for (int i = 1; i < marks.size(); i++) {
-            str += "  Assignment " + i + ": " + getMark(i) + "\n";
+            System.out.printf("  Assignment %d: %d\n", i, getMark(i));
         }
-        System.out.println(str);
     }
 
     @Override

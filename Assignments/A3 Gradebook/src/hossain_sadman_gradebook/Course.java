@@ -56,19 +56,9 @@ public class Course {
         }
     }
 
-    public Student getStudent(String name) {
+    public Student getStudent(String nameOrId) {
         for (Student student : students) {
-            if (student.getName().equals(name)) {
-                return student;
-            }
-        }
-        System.out.println("Student not found!");
-        return null;
-    }
-
-    public Student getStudent(int id) {
-        for (Student student : students) {
-            if (student.getId() == id) {
+            if (student.getName().equals(nameOrId)) {
                 return student;
             }
         }
@@ -80,16 +70,8 @@ public class Course {
         students.add(students.size() - 1, student);
     }
 
-    public void removeStudent(Student student) {
-        students.remove(getStudent(student));
-    }
-
-    public void removeStudent(String name) {
-        students.remove(getStudent(name));
-    }
-
-    public void removeStudent(int id) {
-        students.remove(getStudent(id));
+    public void removeStudent(String nameOrId) {
+        students.remove(getStudent(nameOrId));
     }
 
     public void setStudentName(String oldName, String newName) {
@@ -100,12 +82,12 @@ public class Course {
         getStudent(oldId).setName(newId);
     }
 
-    public void addMark(Student student, int mark) {
-        getStudent(student).addMark(mark);
+    public void addMark(String nameOrId, int mark) {
+        getStudent(nameOrId).addMark(mark);
     }
 
-    public void setMark(Student student, int assignment, int mark) {
-        getStudent(student).setMark(assignment, mark);
+    public void setMark(String nameOrId, int assignment, int mark) {
+        getStudent(nameOrId).setMark(assignment, mark);
     }
 
     private int inputPrompt(String prompt, String errorMsg, int lower, int upper) {
@@ -146,7 +128,7 @@ public class Course {
         }
     }
 
-    public Double courseAverage() {
+    public double courseAverage() {
         double average = 0;
         for (Student student : students) {
             average += student.average();
@@ -156,10 +138,10 @@ public class Course {
     }
 
     public void printCourseAverage() {
-        System.out.printf("\n %s COURSE AVERAGE: %.1f", code, courseAverage());
+        System.out.printf("\n%s COURSE AVERAGE: %.1f", code, courseAverage());
     }
 
-    public Double assignmentAverage(int assignment) {
+    public double assignmentAverage(int assignment) {
         double average = 0;
         for (Student student : students) {
             average += student.getMark(assignment);
@@ -169,29 +151,27 @@ public class Course {
     }
 
     public void printAssignmentAverage(int assignment) {
-        System.out.printf("\nAssignment %d Average: %.1f", assignment, assignmentAverage(assignment));
+        System.out.printf("\nASSIGNMENT %d AVERAGE: %.1f", assignment, assignmentAverage(assignment));
     }
 
     public void printAllAssignmentAverages() {
         System.out.println(code + " ASSIGNMENT AVERAGES");
         for (int i = 0; i < students.get(0).getMarks().size(); i++) {
-            System.out.printf("\nAssignment %d: %.1f", i, assignmentAverage(i));
+            System.out.printf("Assignment %d: %.1f", i, assignmentAverage(i));
         }
     }
 
     public void printAssignmentMarks(int assignment) {
-        String str = "ASSIGNMENT " + assignment + " MARKS:\n";
+        System.out.println("ASSIGNMENT " + assignment + " MARKS:");
         for (Student student : students) {
-            str += "  " + student.getName() + ": " + student.getMark(assignment) + "\n";
+            System.out.println("  " + student.getName() + ": " + student.getMark(assignment));
         }
-        System.out.println(str);
     }
 
     public void printStudentAverages() {
-        String str = "STUDENTS:\n";
+        System.out.println(code + " STUDENT AVERAGES:");
         for (Student student : students) {
-            str += "  Name: " + student.getName() + "; Average: " + student.average() + "\n";
+            System.out.printf("  %s %s: %.1f\n", student.getId(), student.getName(), student.average());
         }
-        System.out.println(str);
     }
 }
