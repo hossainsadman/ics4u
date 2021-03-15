@@ -11,14 +11,13 @@ public class Gradebook {
 
     private static Scanner s = new Scanner(System.in);
 
-    private static Course ics = new Course("Intro to CS", "ICS4U");
-
     private static int inputPrompt(String prompt, String errorMsg) {
         while (true) {
             System.out.print(prompt);
             try {
-                int mark = Integer.parseInt(s.nextLine());
-                return mark;
+                int input = Integer.parseInt(s.nextLine());
+                System.out.println();
+                return input;
             } catch (Exception e) {
                 System.out.println(errorMsg);
             }
@@ -29,12 +28,13 @@ public class Gradebook {
         while (true) {
             System.out.print(prompt);
             try {
-                int mark = Integer.parseInt(s.nextLine());
-                if (mark < lower || mark > upper) {
+                int input = Integer.parseInt(s.nextLine());
+                if (input < lower || input > upper) {
                     System.out.println(errorMsg);
                     continue;
                 }
-                return mark;
+                System.out.println();
+                return input;
             } catch (Exception e) {
                 System.out.println(errorMsg);
             }
@@ -42,48 +42,155 @@ public class Gradebook {
     }
 
     public static void printStartUp() {
-        System.out.println("--------TDSB GRADEBOOK--------");
-        System.out.println("AUTHOR: Sadman Hossain");
-        System.out.println("------------------------------");
+        System.out.println("******TDSB GRADEBOOK******");
+        System.out.println("\nAUTHOR: Sadman Hossain");
+        System.out.println("\n**************************");
     }
 
-    public static void menu() {
+    public static void menu(Course course) {
         boolean exit = false;
         while (!exit) {
-            System.out.println("\n------COMMANDS------");
+            System.out.println("\n<<<<<< SECTIONS >>>>>>");
             System.out.println("1: Students");
-            System.out.println("2: Assignments");
-            System.out.println("3: Marks");
+            System.out.println("2: Marks");
             System.out.println("-----------------");
-            System.out.println("4: EXIT GRADEBOOK");
+            System.out.println("3: EXIT GRADEBOOK");
 
-            int command = inputPrompt("> ", "Invalid command! Please enter a command between 1 and 4.\n", 1, 4);
+            int command = inputPrompt("\n> ", "Invalid command! Please enter a command between 1 and 3.\n", 1, 3);
 
             switch (command) {
-                case 4: System.out.println("Thank you for using TDSB GRADEBOOK!");
+                case 1:
+                    students(course);
+                    break;
+                case 2:
+                    marks(course);
+                    break;
+                case 3:
+                    System.out.println("\nThank you for using TDSB GRADEBOOK!");
                     exit = true;
                     break;
             }
         }
     }
 
-    public static void students() {
+    public static void students(Course course) {
         boolean exit = false;
         while (!exit) {
-            System.out.println("\n----- <STUDENTS> -----");
+            System.out.println("----- <STUDENTS > -----");
             System.out.println("1: List Students");
-            System.out.println("2: Add Students");
-            System.out.println("3: Demit Students");
-            System.out.println("4: View Student Info");
-            System.out.println("5: Edit Student Info");
+            System.out.println("2: Add a Student");
+            System.out.println("3: Demit a Student");
+            System.out.println("4: Edit a Student's Name");
+            System.out.println("5: Edit a Student's ID");
             System.out.println("-----------------");
-            System.out.println("0: GO BACK TO <TOOLS>");
+            System.out.println("0: GO BACK TO <SECTIONS>");
 
-            int command = inputPrompt("> ", "Invalid command! Please enter a command between 0 and 5.\n", 0, 5);
+            int command = inputPrompt("\n> ",
+                                    "Invalid command! Please enter a command between 0 and 5.",
+                                    0, 5);
+
+            String name, id, nameOrId;
 
             switch (command) {
-                case 1: ics.printStudentAverages();
-                case 0: System.out.println("GOING BACK TO <TOOLS>...");
+                case 1:
+                    course.printStudentAverages();
+                    break;
+                case 2:
+                    System.out.print("Enter student name: ");
+                    name = s.nextLine();
+                    System.out.print("Enter student ID: ");
+                    id = s.nextLine();
+                    course.addStudent(new Student(name, id));
+                    System.out.printf("Added student: %s %s\n\n", id, name);
+                    break;
+                case 3:
+                    System.out.print("Enter student name or ID: ");
+                    nameOrId = s.nextLine();
+                    course.removeStudent(nameOrId);
+                    System.out.printf("Removed student (if present): %s\n\n", nameOrId);
+                    break;
+                case 4:
+                    System.out.print("Enter student name or ID: ");
+                    nameOrId = s.nextLine();
+                    System.out.printf("Current Name: %s\n",
+                                    course.getStudent(nameOrId).getName());
+                    System.out.print("New Name: ");
+                    name = s.nextLine();
+                    course.getStudent(nameOrId).setName(name);
+                    System.out.printf("Student name set set to: %s\n\n", name);
+                    break;
+                case 5:
+                    System.out.print("Enter student name or ID: ");
+                    nameOrId = s.nextLine();
+                    System.out.printf("Current ID: %s\n",
+                                    course.getStudent(nameOrId).getId());
+                    System.out.print("New ID: ");
+                    id = s.nextLine();
+                    course.getStudent(nameOrId).setId(id);
+                    System.out.printf("Student name set set to: %s\n\n", id);
+                    break;
+                case 0:
+                    System.out.println("GOING BACK TO <SECTIONS>...");
+                    exit = true;
+                    break;
+            }
+        }
+    }
+
+    public static void marks(Course course) {
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("----- <Marks > -----");
+            System.out.println("1: Add Assignment");
+            System.out.println("2: Delete Assignment");
+            System.out.println("|");
+            System.out.println("3: Add a Mark");
+            System.out.println("4: Edit a Mark for a Student");
+            System.out.println("5: Edit all Marks for a Student");
+            System.out.println("|");
+            System.out.println("6: Edit All Marks For An Assignment");
+            System.out.println("7: Edit A Mark For An Assignment");
+            System.out.println("|");
+            System.out.println("8: View Average For: Course");
+            System.out.println("9: View Average For: An Assignment");
+            System.out.println("10: List Marks For: An Assignment");
+            System.out.println("11: View Average For: All Assignments");
+            System.out.println("12: List Marks For: All Assignments");
+            System.out.println("|");
+            System.out.println("13: View Average For: A Student");
+            System.out.println("14: List Marks For: A Student");
+            System.out.println("15: View Average For: All Students");
+            System.out.println("16: List Marks For: All Students");
+            System.out.println("17: View Average For: All Students");
+            System.out.println("-----------------");
+            System.out.println("0: GO BACK TO <SECTIONS>");
+
+            int command = inputPrompt("\n> ",
+                                    "Invalid command! Please enter a command between 0 and 5.\n",
+                                    0, 5);
+
+            switch (command) {
+                case 1:
+                    course.addAssignment();
+                    System.out.println("Added an assignment!");
+                    break;
+                case 2:
+                    int deleteAssignment = inputPrompt("Enter number of assignment: ",
+                                                    "Invalid input! Please try again.");
+                    course.deleteAssignment(deleteAssignment);
+                    System.out.println("Deleted assignment: " + deleteAssignment);
+                    break;
+                case 8:
+                    course.printCourseAverage();
+                    break;
+                case 11:
+                    course.printAllAssignmentAverages();
+                    break;
+                case 17:
+                    course.printStudentAverages();
+                    break;
+                case 0:
+                    System.out.println("GOING BACK TO <SECTIONS>...");
                     exit = true;
                     break;
             }
@@ -95,27 +202,19 @@ public class Gradebook {
      */
     public static void main(String[] args) {
         printStartUp();
-        Student a = new Student("a", "1");
-        Student b = new Student("b", "2");
-        Student c = new Student("c", "3");
-        Student d = new Student("d", "4");
-        Student e = new Student("t", "1");
-        ArrayList<Student> asd= new ArrayList<Student>();
-        asd.add(a);
-        asd.add(b);
-        asd.add(c);
-        asd.add(d);
-        asd.add(e);
-        Course course = new Course("abcd", "12", asd);
-        course.addAssignment();
-        course.setMark("a", 0, 56);
-        course.printAssignmentMarks(0);
-        course.setAllMarks(0);
-        course.addAssignment();
-        course.setAllMarks(1);
-        course.printAssignmentMarks(1);
-        course.deleteAssignment(0);
-        course.printAssignmentMarks(0);
+        Student a = new Student("Mario S", "00001");
+        Student b = new Student("Petey C", "00002");
+        Student c = new Student("Anna S", "00003");
+        Student d = new Student("Paul M", "00004");
+        Student e = new Student("Anna M", "00005");
+        ArrayList<Student> students = new ArrayList<Student>();
+        students.add(a);
+        students.add(b);
+        students.add(c);
+        students.add(d);
+        students.add(e);
+        Course course = new Course("Intro to CS", "ICS4U", students);
+        menu(course);
     }
 
 }

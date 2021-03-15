@@ -11,6 +11,9 @@ public class Course {
 
     private Scanner s = new Scanner(System.in);
 
+    private final String INDENT1 = "  ";
+    private final String INDENT2 = INDENT1 + INDENT1;
+
     private String name;
     private String code;
     private ArrayList<Student> students;
@@ -58,7 +61,7 @@ public class Course {
 
     public Student getStudent(String nameOrId) {
         for (Student student : students) {
-            if (student.getName().equals(nameOrId)) {
+            if (student.getName().equals(nameOrId) || student.getId().equals(nameOrId)) {
                 return student;
             }
         }
@@ -67,7 +70,7 @@ public class Course {
     }
 
     public void addStudent(Student student) {
-        students.add(students.size() - 1, student);
+        students.add(students.size(), student);
     }
 
     public void removeStudent(String nameOrId) {
@@ -107,11 +110,11 @@ public class Course {
     }
 
     public void setAllMarks(int assignment) {
-        System.out.println("EDIT ALL MARKS FOR ASSIGNMENT " + assignment + ":");
+        System.out.print("EDIT ALL MARKS FOR ASSIGNMENT " + assignment + ":");
         for (Student student : students) {
-            System.out.println("  Name: " + student.getName() + "; ID: " + student.getId());
-            System.out.println("    Current Mark: " + student.getMark(assignment));
-            student.setMark(assignment, inputPrompt("    New Mark: ", "Invalid input! Please enter a mark between 0 and 100.", 0, 100));
+            System.out.println(INDENT1 + student.getId() + " " + student.getName() + ":");
+            System.out.println(INDENT2 + "Current Mark: " + student.getMark(assignment));
+            student.setMark(assignment, inputPrompt(INDENT2 + "New Mark: ", INDENT2 + "Invalid input! Please enter an integer mark between 0 and 100.", 0, 100));
             System.out.println();
         }
     }
@@ -138,7 +141,7 @@ public class Course {
     }
 
     public void printCourseAverage() {
-        System.out.printf("\n%s COURSE AVERAGE: %.1f", code, courseAverage());
+        System.out.printf("\n%s COURSE AVERAGE: %.1f\n", code, courseAverage());
     }
 
     public double assignmentAverage(int assignment) {
@@ -151,27 +154,30 @@ public class Course {
     }
 
     public void printAssignmentAverage(int assignment) {
-        System.out.printf("\nASSIGNMENT %d AVERAGE: %.1f", assignment, assignmentAverage(assignment));
+        System.out.printf("\nASSIGNMENT %d AVERAGE: %.1f\n", assignment, assignmentAverage(assignment));
     }
 
     public void printAllAssignmentAverages() {
-        System.out.println(code + " ASSIGNMENT AVERAGES");
+        System.out.print(code + " ASSIGNMENT AVERAGES");
         for (int i = 0; i < students.get(0).getMarks().size(); i++) {
             System.out.printf("Assignment %d: %.1f", i, assignmentAverage(i));
         }
+        System.out.println();
     }
 
     public void printAssignmentMarks(int assignment) {
-        System.out.println("ASSIGNMENT " + assignment + " MARKS:");
+        System.out.print("ASSIGNMENT " + assignment + " MARKS:");
         for (Student student : students) {
-            System.out.println("  " + student.getName() + ": " + student.getMark(assignment));
+            System.out.printf("%s%s: %d\n", INDENT1, student.getName(), student.getMark(assignment));
         }
+        System.out.println();
     }
 
     public void printStudentAverages() {
         System.out.println(code + " STUDENT AVERAGES:");
         for (Student student : students) {
-            System.out.printf("  %s %s: %.1f\n", student.getId(), student.getName(), student.average());
+            System.out.printf(INDENT1 + "%s %s: %.1f\n", student.getId(), student.getName(), student.average());
         }
+        System.out.println();
     }
 }
