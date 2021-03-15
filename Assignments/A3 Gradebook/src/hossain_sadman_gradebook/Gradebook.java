@@ -140,11 +140,11 @@ public class Gradebook {
     public static void marks(Course course) {
         boolean exit = false;
         while (!exit) {
-            System.out.println("----- <Marks > -----");
+            System.out.println("----- <MARKS> -----");
             System.out.println("1: Add Assignment");
             System.out.println("2: Delete Assignment");
             System.out.println("|");
-            System.out.println("3: Add a Mark");
+            System.out.println("3: Add a Mark for a Student");
             System.out.println("4: Edit a Mark for a Student");
             System.out.println("5: Edit all Marks for a Student");
             System.out.println("|");
@@ -166,24 +166,35 @@ public class Gradebook {
             System.out.println("0: GO BACK TO <SECTIONS>");
 
             int command = inputPrompt("\n> ",
-                                    "Invalid command! Please enter a command between 0 and 5.\n",
-                                    0, 5);
+                                    "Invalid command! Please enter a command between 0 and 17.\n",
+                                    0, 17);
+
+            int assignment;
 
             switch (command) {
                 case 1:
                     course.addAssignment();
-                    System.out.println("Added an assignment!");
+                    System.out.println("Added an assignment!\n");
                     break;
                 case 2:
-                    int deleteAssignment = inputPrompt("Enter number of assignment: ",
+                    assignment = inputPrompt("Enter assignment number: ",
                                                     "Invalid input! Please try again.");
-                    course.deleteAssignment(deleteAssignment);
-                    System.out.println("Deleted assignment: " + deleteAssignment);
+                    course.deleteAssignment(assignment);
+                    System.out.printf("Deleted assignment: %d\n\n", assignment);
+                    break;
+                case 6:
+                    assignment = inputPrompt("Enter assignment number: ",
+                                                    "Invalid input! Please try again.",
+                                                    0, course.getStudents().get(0).getMarks().size() - 1);
+                    course.setAllMarksForAssignment(assignment);
                     break;
                 case 8:
                     course.printCourseAverage();
                     break;
                 case 11:
+                    course.printAllAssignmentAverages();
+                    break;
+                case 12:
                     course.printAllAssignmentAverages();
                     break;
                 case 17:

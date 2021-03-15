@@ -65,6 +65,7 @@ public class Student {
         for (int mark : marks) {
             average += mark;
         }
+        average /= marks.size();
         return average;
     }
 
