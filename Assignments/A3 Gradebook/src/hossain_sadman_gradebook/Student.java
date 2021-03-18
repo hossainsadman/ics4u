@@ -1,16 +1,16 @@
 package hossain_sadman_gradebook;
 
 import static hossain_sadman_gradebook.Gradebook.INDENT1;
-
 import java.util.ArrayList;
 
 /**
- *
+ * Represents a student, with a name, id, and a list of marks for each assignment
+ * in a course.
  * @author Sadman
  */
 public class Student {
 
-    // identifier variables of name and id
+    // name and id of the student
     private String name;
     private String id;
     // list of marks corresponding to each assignment
@@ -91,7 +91,7 @@ public class Student {
     /**
      * Return the student's mark on a specific assignment .
      * @param assignment number of the assignment
-     * @return
+     * @return the student's mark on that assignment
      */
     public int getMark(int assignment) {
         return this.marks.get(assignment);
@@ -118,7 +118,7 @@ public class Student {
      * Return the average of the student's marks. Note: this does not take the '-1'
      * placeholder mark for new assignments into consideration when calculating
      * the student's average.
-     * @return
+     * @return average as a double
      */
     public double average() {
         double average = 0;
