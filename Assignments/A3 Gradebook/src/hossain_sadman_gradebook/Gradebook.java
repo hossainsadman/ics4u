@@ -5,16 +5,26 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ * Represents the interface with which teachers can access and modify student
+ * information and marks for various courses. Implements course and
+ * student-specific methods with simple text formatting for the user.
  * @author Sadman
  */
 public class Gradebook {
 
     static Scanner s = new Scanner(System.in);
 
+    // indent constants used for text formatting
     final static String INDENT1 = "  ";
     final static String INDENT2 = INDENT1 + INDENT1;
 
+    /**
+     * Returns an integer input safely; catches errors and displays given input
+     * and error messages for the user.
+     * @param prompt initial message to display prompting input
+     * @param errorMsg error message
+     * @return an integer input
+     */
     static int intPrompt(String prompt, String errorMsg) {
         while (true) {
             System.out.print(prompt);
@@ -28,6 +38,16 @@ public class Gradebook {
         }
     }
 
+    /**
+     * Returns an integer input safely; has given lower and upper bounds for
+     * input, catches errors, and dispplays given input and error messages for
+     * the user.
+     * @param prompt initial message to display prompting input
+     * @param errorMsg error message
+     * @param lower lower bound for input
+     * @param upper upper bound for input
+     * @return an integer input
+     */
     static int intPrompt(String prompt, String errorMsg, int lower, int upper) {
         while (true) {
             System.out.print(prompt);
@@ -45,6 +65,14 @@ public class Gradebook {
         }
     }
 
+    /**
+     * Returns a valid integer input for an assignment number; displays input
+     * and error messages for user and prevents user from inputting an invalid
+     * assignment number (below 0 or above the number of assignments for each
+     * student).
+     * @param course course to return assignment number for
+     * @return a valid assignment number (as an integer)
+     */
     private static int assignmentPrompt(Course course) {
         int assignment = intPrompt("Enter an assignment number: ",
                         "Assignment does not exist!", 0,
@@ -52,20 +80,30 @@ public class Gradebook {
         return assignment;
     }
 
+    /**
+     * Prints the startup message for the gradebook program.
+     */
     public static void printStartUp() {
         System.out.println("+----------------+");
         System.out.println("| TDSB GRADEBOOK |");
         System.out.println("+----------------+");
         System.out.println("AUTHOR: Sadman Hossain");
 
-        System.out.println("\nEnter the number of the command or section you wish to use:");
+        System.out.println("\nEnter the number of the command or menu you wish to use:");
         System.out.println("e.g. \"> 1\"");
     }
 
+    /**
+     * Runs the topmost menu for gradebook program (allows user to enter
+     * 'STUDENTS' and 'MARKS' menus).
+     * @param course course to run menu for
+     * @throws InterruptedException thrown to delay between command execution
+     * and menu entering or exiting
+     */
     public static void sectionMenu(Course course) throws InterruptedException {
         boolean exit = false;
         while (!exit) {
-            System.out.println("\n<<< SECTIONS >>>");
+            System.out.println("\n<<< MENUS >>>");
             System.out.println("1: STUDENTS");
             System.out.println("2: MARKS");
             System.out.println("-----------------");
@@ -74,6 +112,7 @@ public class Gradebook {
             int command = intPrompt("\n> ", "Invalid command! Please enter a command between 0 and 2.", 0, 2);
 
             switch (command) {
+                // exit command
                 case 0:
                     System.out.println("Thank you for using TDSB GRADEBOOK!");
                     exit = true;
@@ -85,9 +124,18 @@ public class Gradebook {
                     sectionMarks(course);
                     break;
             }
+            // delay between commands
+            TimeUnit.SECONDS.sleep(1);
         }
     }
 
+    /**
+     * Runs the menu for the 'STUDENTS' menu; allows user to access and
+     * modify student personal information.
+     * @param course course to run menu for
+     * @throws InterruptedException thrown to delay between command execution
+     * and menu entering or exiting
+     */
     public static void sectionStudents(Course course) throws InterruptedException {
         boolean exit = false;
         while (!exit) {
@@ -98,15 +146,16 @@ public class Gradebook {
             System.out.println("4: Edit a Student's Name");
             System.out.println("5: Edit a Student's ID");
             System.out.println("------------------------------");
-            System.out.println("0: GO BACK TO <<< SECTIONS >>>");
+            System.out.println("0: GO BACK TO <<< MENUS >>>");
 
             int command = intPrompt("\n> ",
                                     "Invalid command! Please enter a command between 0 and 5.",
                                     0, 5);
 
             switch (command) {
+                // exit command
                 case 0:
-                    System.out.println("GOING BACK TO <<< SECTIONS >>>...");
+                    System.out.println("GOING BACK TO <<< MENUS >>>...");
                     exit = true;
                     break;
                 case 1:
@@ -123,8 +172,9 @@ public class Gradebook {
                     break;
                 case 5:
                     editId(course);
-                    break;                
+                    break;
             }
+            // delay between commands
             TimeUnit.SECONDS.sleep(1);
         }
     }
@@ -186,15 +236,16 @@ public class Gradebook {
             System.out.println("5: LIST MARKS");
             System.out.println("6: VIEW AVERAGES");
             System.out.println("------------------------------");
-            System.out.println("0: GO BACK TO <<< SECTIONS >>>");
+            System.out.println("0: GO BACK TO <<< MENUS >>>");
 
             int command = intPrompt("\n> ",
                                     "Invalid command! Please enter a command between 0 and 5.",
                                     0, 6);
 
             switch (command) {
+                // exit command
                 case 0:
-                    System.out.println("GOING BACK TO <<< SECTIONS >>>...");
+                    System.out.println("GOING BACK TO <<< MENUS >>>...");
                     exit = true;
                     break;
                 case 1:
@@ -216,6 +267,7 @@ public class Gradebook {
                     sectionViewAverages(course);
                     break;
             }
+            // delay between commands
             TimeUnit.SECONDS.sleep(1);
         }
     }
@@ -260,6 +312,7 @@ public class Gradebook {
                                     0, 3);
 
             switch (command) {
+                // exit command
                 case 0:
                     System.out.println("GOING BACK TO <MARKS>...\n");
                     exit = true;
@@ -274,6 +327,8 @@ public class Gradebook {
                     editAllMarksForAssignment(course);
                     break;
             }
+            // delay between commands
+            TimeUnit.SECONDS.sleep(1);
         }
     }
 
@@ -286,7 +341,7 @@ public class Gradebook {
             int mark = intPrompt(INDENT1 + "New mark: ",
                                 "Invalid input! Please try again.", 0, 100);
             student.setMark(assignment, mark);
-            System.out.printf("Set assignment %d mark for %s %s to: %d\n\n", 
+            System.out.printf("Set assignment %d mark for %s %s to: %d\n\n",
                 assignment, student.getId(), student.getName(), mark);
         }
     }
@@ -334,6 +389,7 @@ public class Gradebook {
                                     0, 4);
 
             switch (command) {
+                // exit command
                 case 0:
                     System.out.println("GOING BACK TO <MARKS>...\n");
                     exit = true;
@@ -346,12 +402,13 @@ public class Gradebook {
                     printMarksForAllAssignments(course);
                     break;
                 case 3:
-                    printMarksForStudent(course);    
+                    printMarksForStudent(course);
                     break;
                 case 4:
                     printMarksForAllStudents(course);
                     break;
-            }            
+            }
+            // delay between commands
             TimeUnit.SECONDS.sleep(1);
         }
     }
@@ -403,6 +460,7 @@ public class Gradebook {
                             0, 5);
 
             switch (command) {
+                // exit command
                 case 0:
                     System.out.println("GOING BACK TO <MARKS>...\n");
                     exit = true;
@@ -428,6 +486,7 @@ public class Gradebook {
                     printAverageForAllAssignments(course);
                     break;
             }
+            // delay between commands
             TimeUnit.SECONDS.sleep(1);
         }
     }
