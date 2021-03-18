@@ -1,18 +1,12 @@
 package hossain_sadman_gradebook;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
  * @author Sadman
  */
 public class Course {
-
-    private Scanner s = new Scanner(System.in);
-
-    private final String INDENT1 = "  ";
-    private final String INDENT2 = INDENT1 + INDENT1;
 
     private String name;
     private String code;
@@ -65,12 +59,16 @@ public class Course {
                 return student;
             }
         }
-        System.out.println("Student not found!");
+        System.out.println("Student not found!\n");
         return null;
     }
 
-    public void addStudent(Student student) {
-        students.add(students.size(), student);
+    public void addStudent(String name, String id) {
+        ArrayList<Integer> marks = new ArrayList<Integer>();
+        for (int i = 0; i < students.get(0).getMarks().size(); i++) {
+            marks.add(-1);
+        }
+        students.add(students.size(), new Student(name, id, marks));
     }
 
     public void removeStudent(String nameOrId) {
@@ -86,44 +84,18 @@ public class Course {
     }
 
     public void addMark(String nameOrId, int mark) {
-        getStudent(nameOrId).addMark(mark);
+        addAssignment();
+        Student student = getStudent(nameOrId);
+        student.setMark(student.getMarks().size() - 1, mark);
     }
 
     public void setMark(String nameOrId, int assignment, int mark) {
         getStudent(nameOrId).setMark(assignment, mark);
     }
 
-    private int inputPrompt(String prompt, String errorMsg, int lower, int upper) {
-        while (true) {
-            System.out.print(prompt);
-            try {
-                int mark = Integer.parseInt(s.nextLine());
-                if (mark < lower || mark > upper) {
-                    System.out.println(errorMsg);
-                    continue;
-                }
-                return mark;
-            } catch (Exception e) {
-                System.out.println(errorMsg);
-            }
-        }
-    }
-
-    public void setAllMarksForAssignment(int assignment) {
-        System.out.print("EDIT ALL MARKS FOR ASSIGNMENT " + assignment + ":\n");
-        for (Student student : students) {
-            System.out.println(INDENT1 + student.getId() + " " + student.getName() + ":");
-            System.out.println(INDENT2 + "Current Mark: " + student.getMark(assignment));
-            student.setMark(assignment, inputPrompt(INDENT2 + "New Mark: ",
-                            INDENT2 + "Invalid input! Please enter an integer mark between 0 and 100.",
-                            0, 100));
-            System.out.println();
-        }
-    }
-
     public void addAssignment() {
         for (Student student : students) {
-            student.getMarks().add(0);
+            student.getMarks().add(-1);
         }
     }
 
@@ -142,10 +114,6 @@ public class Course {
         return average;
     }
 
-    public void printCourseAverage() {
-        System.out.printf("\n%s COURSE AVERAGE: %.1f\n", code, courseAverage());
-    }
-
     public double assignmentAverage(int assignment) {
         double average = 0;
         for (Student student : students) {
@@ -153,42 +121,5 @@ public class Course {
         }
         average /= students.size();
         return average;
-    }
-
-    public void printAssignmentAverage(int assignment) {
-        System.out.printf("\nASSIGNMENT %d AVERAGE: %.1f\n", assignment,
-                            assignmentAverage(assignment));
-    }
-
-    public void printAllAssignmentAverages() {
-        System.out.print(code + " ASSIGNMENT AVERAGES");
-        for (int i = 0; i < students.get(0).getMarks().size(); i++) {
-            System.out.printf("Assignment %d: %.1f", i, assignmentAverage(i));
-        }
-        System.out.println();
-    }
-
-    public void printMarksForAssignment(int assignment) {
-        System.out.print("ASSIGNMENT " + assignment + " MARKS:");
-        for (Student student : students) {
-            System.out.printf("%s%s: %d\n", INDENT1, student.getName(),
-                                student.getMark(assignment));
-        }
-        System.out.println();
-    }
-
-    public void printMarksForAllAssignments() {
-        for (int i = 0; i < students.get(0).getMarks().size() - 1; i++) {
-            printMarksForAssignment(i);
-        }
-    }
-
-    public void printStudentAverages() {
-        System.out.println(code + " STUDENT AVERAGES:");
-        for (Student student : students) {
-            System.out.printf(INDENT1 + "%s %s: %.1f\n", student.getId(),
-                                student.getName(), student.average());
-        }
-        System.out.println();
     }
 }

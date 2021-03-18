@@ -1,5 +1,7 @@
 package hossain_sadman_gradebook;
 
+import static hossain_sadman_gradebook.Gradebook.INDENT1;
+
 import java.util.ArrayList;
 
 /**
@@ -62,22 +64,22 @@ public class Student {
 
     public double average() {
         double average = 0;
+        int numMarks = 0;
         for (int mark : marks) {
-            average += mark;
+            if (mark != -1) {
+                average += mark;
+                numMarks++;
+            }
         }
-        average /= marks.size();
+        average /= numMarks;
         return average;
     }
 
     public void printAllMarks() {
-        System.out.printf("\nMARKS FOR STUDENT %s (%s):\n", name, id);
-        for (int i = 1; i < marks.size(); i++) {
-            System.out.printf("  Assignment %d: %d\n", i, getMark(i));
+        System.out.printf("MARKS FOR STUDENT: %s %s\n", id, name);
+        for (int i = 0; i < marks.size(); i++) {
+            System.out.printf("%sAssignment %d: %d\n", INDENT1, i, getMark(i));
         }
-    }
-
-    @Override
-    public String toString() {
-        return (String) name + id;
+        System.out.println();
     }
 }
