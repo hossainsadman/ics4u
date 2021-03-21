@@ -25,7 +25,7 @@ public class Student {
     public Student(String name, String id) {
         this.name = name;
         this.id = id;
-        marks = new ArrayList<Integer>();
+        marks = new ArrayList<>();
     }
 
     /**
@@ -44,7 +44,7 @@ public class Student {
      * Returns the student's name.
      * @return student name
      */
-	public String getName() {
+	String getName() {
 		return this.name;
 	}
 
@@ -52,7 +52,7 @@ public class Student {
      * Set the student's name.
      * @param name new name of student
      */
-	public void setName(String name) {
+	void setName(String name) {
 		this.name = name;
 	}
 
@@ -60,7 +60,7 @@ public class Student {
      * Returns the student's id.
      * @return student id
      */
-	public String getId() {
+	String getId() {
 		return this.id;
 	}
 
@@ -68,7 +68,7 @@ public class Student {
      * Set the student's id.
      * @param id new id of student
      */
-	public void setId(String id) {
+	void setId(String id) {
 		this.id = id;
 	}
 
@@ -76,7 +76,7 @@ public class Student {
      * Return the student's list of marks.
      * @return list of marks
      */
-	public ArrayList<Integer> getMarks() {
+	ArrayList<Integer> getMarks() {
 		return this.marks;
 	}
 
@@ -84,7 +84,7 @@ public class Student {
      * Set the student's list of marks.
      * @param marks
      */
-	public void setMarks(ArrayList<Integer> marks) {
+	void setMarks(ArrayList<Integer> marks) {
 		this.marks = marks;
 	}
 
@@ -93,7 +93,7 @@ public class Student {
      * @param assignment number of the assignment
      * @return the student's mark on that assignment
      */
-    public int getMark(int assignment) {
+    int getMark(int assignment) {
         return this.marks.get(assignment);
     }
 
@@ -101,7 +101,7 @@ public class Student {
      * Add a mark to the student's list of marks.
      * @param mark mark to be added
      */
-    public void addMark(int mark) {
+    void addMark(int mark) {
         this.marks.add(mark);
     }
 
@@ -110,7 +110,7 @@ public class Student {
      * @param assignment number of the assignment
      * @param mark new mark for the assignment
      */
-    public void setMark(int assignment, int mark) {
+    void setMark(int assignment, int mark) {
         this.marks.set(assignment, mark);
     }
 
@@ -120,15 +120,18 @@ public class Student {
      * the student's average.
      * @return average as a double
      */
-    public double average() {
+    double average() {
         double average = 0;
         int numMarks = 0;
+
         for (int mark : marks) {
+            // only calculate average for non-placeholder marks (as in, not -1)
             if (mark != -1) {
                 average += mark;
                 numMarks++;
             }
         }
+
         average /= numMarks;
         return average;
     }
@@ -136,11 +139,13 @@ public class Student {
     /**
      * Print the student's marks for each assignment.
      */
-    public void printAllMarks() {
+    void printAllMarks() {
         System.out.printf("MARKS FOR STUDENT: %s %s\n", id, name);
+
         for (int i = 0; i < marks.size(); i++) {
             System.out.printf("%sAssignment %d: %d\n", INDENT1, i, getMark(i));
         }
+
         System.out.println();
     }
 }

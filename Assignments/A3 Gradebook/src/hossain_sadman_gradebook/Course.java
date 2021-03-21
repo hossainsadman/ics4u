@@ -17,14 +17,14 @@ public class Course {
 
     /**
      * Instantiates a course object with the given name and code; initializes its
-     * list of students as an empty list.
+     * list of students with an empty list.
      * @param name course name
      * @param code course code
      */
     public Course(String name, String code) {
         this.name = name;
         this.code = code;
-        students = new ArrayList<Student>();
+        students = new ArrayList<>();
     }
 
     /**
@@ -44,7 +44,7 @@ public class Course {
      * Return the course name.
      * @return course name
      */
-	public String getName() {
+	String getName() {
 		return this.name;
 	}
 
@@ -52,7 +52,7 @@ public class Course {
      * Set the course name.
      * @param name new name for course
      */
-	public void setName(String name) {
+	void setName(String name) {
 		this.name = name;
 	}
 
@@ -60,7 +60,7 @@ public class Course {
      * Return the course code.
      * @return course code
      */
-	public String getCode() {
+	String getCode() {
 		return this.code;
 	}
 
@@ -68,7 +68,7 @@ public class Course {
      * Set the course code.
      * @param code new code for course
      */
-	public void setCode(String code) {
+	void setCode(String code) {
 		this.code = code;
 	}
 
@@ -76,7 +76,7 @@ public class Course {
      * Return the list of students in the course.
      * @return list of students
      */
-	public ArrayList<Student> getStudents() {
+	ArrayList<Student> getStudents() {
 		return this.students;
 	}
 
@@ -86,7 +86,7 @@ public class Course {
      * @param student student object being searched for
      * @return corresponding student object in the course (null if not found)
      */
-    public Student getStudent(Student student) {
+    Student getStudent(Student student) {
         if (students.contains(student)) {
             return student;
         } else {
@@ -101,7 +101,7 @@ public class Course {
      * @param nameOrId name or id of the student being searched for
      * @return corresponding student object in the course (null if not found)
      */
-    public Student getStudent(String nameOrId) {
+    Student getStudent(String nameOrId) {
         for (Student student : students) {
             if (student.getName().equals(nameOrId) || student.getId().equals(nameOrId)) {
                 return student;
@@ -116,9 +116,9 @@ public class Course {
      * @param name name of student to be added
      * @param id id of student to be added
      */
-    public void addStudent(String name, String id) {
-        ArrayList<Integer> marks = new ArrayList<Integer>();
-        for (int i = 0; i < students.get(0).getMarks().size(); i++) {
+    void addStudent(String name, String id) {
+        ArrayList<Integer> marks = new ArrayList<>();
+        for (int i = 0; i < numAssignments(); i++) {
             marks.add(-1);
         }
         students.add(students.size(), new Student(name, id, marks));
@@ -128,7 +128,7 @@ public class Course {
      * Remove a student in the course (if it is found).
      * @param nameOrId name or id of student
      */
-    public void removeStudent(String nameOrId) {
+    void removeStudent(String nameOrId) {
         students.remove(getStudent(nameOrId));
     }
 
@@ -138,7 +138,7 @@ public class Course {
      * @param nameOrId name or id of student
      * @param mark mark to be added
      */
-    public void addMark(String nameOrId, int mark) {
+    void addMark(String nameOrId, int mark) {
         addAssignment();
         Student student = getStudent(nameOrId);
         student.setMark(student.getMarks().size() - 1, mark);
@@ -158,28 +158,39 @@ public class Course {
      * Add an assignment for the course (adds a placeholder mark of -1 to each
      * student's list of marks).
      */
-    public void addAssignment() {
+    void addAssignment() {
         for (Student student : students) {
             student.getMarks().add(-1);
         }
     }
 
     /**
-     * Delete an assignment for the course (removes the mark for the specfied
-     * assingment in each student's list of marks).
+     * Delete an assignment for the course (removes the mark for the specified
+     * assignment in each student's list of marks).
      * @param assignment number of assignment
      */
-    public void deleteAssignment(int assignment) {
+    void deleteAssignment(int assignment) {
         for (Student student : students) {
             student.getMarks().remove(assignment);
         }
     }
 
     /**
+     * Return the number of assignments in the course.
+     * @return number of assignments
+     */
+    int numAssignments() {
+        // get the number of marks assigned to the first student in the course
+        // (acceptable because all students have the same number of
+        // assignments)
+        return students.get(0).getMarks().size();
+    }
+
+    /**
      * Return the average for the course.
      * @return course average
      */
-    public double courseAverage() {
+    double courseAverage() {
         double average = 0;
         for (Student student : students) {
             average += student.average();
@@ -193,7 +204,7 @@ public class Course {
      * @param assignment number of assignment
      * @return average for that assignment
      */
-    public double assignmentAverage(int assignment) {
+    double assignmentAverage(int assignment) {
         double average = 0;
         for (Student student : students) {
             average += student.getMark(assignment);
