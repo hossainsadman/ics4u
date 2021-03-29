@@ -43,6 +43,7 @@ public class PayrollRunner {
                         success = payroll.loadStaffList(FILE_PATH + filename);
                         if (success) {
                             System.out.println("Staff list in file \'" + filename + "\' loaded.");
+                            System.out.println("");
                         } else {
                             System.out.println("Staff list not loaded!");
                         }
@@ -115,7 +116,7 @@ public class PayrollRunner {
     }
 
     public static void printMenu() {
-        System.out.println("\nBCI INC. PAYROLL APPLICATION");
+        System.out.println("BCI INC. PAYROLL APPLICATION");
         System.out.println("----------------------------");
         System.out.println("Choose an option from the menu:");
         System.out.println("  1. Load staff list from file");
