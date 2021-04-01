@@ -1,8 +1,8 @@
 package payroll;
 
 /**
- * Represents a full-time employee, with a yearly salary and number of sick days
- * left.
+ * Represents a full-time employee, including a yearly salary and number of
+ * sick days left.
  * @author Sadman
  */
 public class FullTimeEmployee extends Employee {
@@ -12,25 +12,23 @@ public class FullTimeEmployee extends Employee {
     // default number of months for which employees are paid
     final private int MONTHS = 12;
 
-    // employee's annual salary
     private int yearlySalary;
     // number of sick days left for employee
     private double sickDaysLeft;
 
     /**
-     *
+     * Instantiates a full-time employee object with the given identifiers
      * (including yearly salary and number of sick days left).
      *
-     * @param employeeNumber
-     * @param lastName
-     * @param firstName
-     * @param jobTitle
-     * @param yearlySalary
-     * @param sickDaysLeft
+     * @param employeeNumber employee number
+     * @param lastName last name
+     * @param firstName first name
+     * @param jobTitle job title
+     * @param yearlySalary yearly salary
+     * @param sickDaysLeft number of sick days left
      */
-    public FullTimeEmployee(String employeeNumber, String lastName,
-            String firstName, String jobTitle, int yearlySalary,
-            double sickDaysLeft) {
+    public FullTimeEmployee(String employeeNumber, String lastName, String firstName,
+            String jobTitle, int yearlySalary, double sickDaysLeft) {
         super(employeeNumber, lastName, firstName, jobTitle);
 
         this.yearlySalary = yearlySalary;
@@ -38,7 +36,8 @@ public class FullTimeEmployee extends Employee {
     }
 
     /**
-     * Return yearly salary of employee.
+     * Returns yearly salary of employee.
+     *
      * @return yearly salary as double
      */
     public double getYearlySalary() {
@@ -47,6 +46,7 @@ public class FullTimeEmployee extends Employee {
 
     /**
      * Returns the amount of money earned monthly based on the yearly salary.
+     *
      * @return monthly pay
      */
     @Override
@@ -62,16 +62,12 @@ public class FullTimeEmployee extends Employee {
      */
     @Override
     public void useSickDay(double amount) {
-        if (sickDaysLeft - amount >= 0) {
-            sickDaysLeft -= amount;
-            System.out.printf("New sick days taken: %.1f\n", amount);
-        } else {
-            System.out.println("Insufficient sick days left!");
-        }
+        sickDaysLeft -= amount;
     }
 
     /**
-     * Return the number of sick days left for employee.
+     * Returns the number of sick days left for employee.
+     *
      * @return number of sick days left
      */
     @Override
@@ -80,7 +76,7 @@ public class FullTimeEmployee extends Employee {
     }
 
     /**
-     * Reset the number of sick days left for employee to the default value.
+     * Resets the number of sick days left for employee to the default value.
      */
     @Override
     public void resetSickDays() {
@@ -88,14 +84,12 @@ public class FullTimeEmployee extends Employee {
     }
 
     /**
-     * Print employee paystub (including information on yearly salary, monthly
+     * Prints employee paystub (including information on yearly salary, monthly
      * pay, and number of sick days left).
      */
     @Override
     public void printPayStub() {
         System.out.println("\n--------------- PAY STUB ---------------");
-        // System.out.printf("\nEmployee: %s, %s %s, %s, full-time", employeeNumber, firstName, lastName, jobTitle);
-        // System.out.printf("\n%s, full-time", this.toString(), jobTitle);
         System.out.println(toString());
         System.out.printf("Yearly Salary: $%.2f", (double) yearlySalary);
         System.out.printf("\nCurrent Month pay: $%.2f", pay());
@@ -104,7 +98,7 @@ public class FullTimeEmployee extends Employee {
     }
 
     /**
-     * Return employee information formatted to a string, including employment
+     * Returns employee information formatted to a string, including employment
      * status.
      *
      * @return employee information as a string

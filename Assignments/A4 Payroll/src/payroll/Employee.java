@@ -2,8 +2,8 @@ package payroll;
 
 /**
  * Abstract class that represents an employee, with unique identifiers
- * (including name & id) and abstract methods for pay, sick day information, and
- * paystub
+ * (including name & id) and abstract methods for accessign pay, sick day, and
+ * paystub information.
  *
  * @author Sadman
  */
@@ -31,7 +31,53 @@ abstract class Employee {
     }
 
     /**
-     * Return the amount of money earned by the employee over a specific time
+     * Return employee number.
+     *
+     * @return employee number.
+     */
+	public String getEmployeeNumber() {
+		return this.employeeNumber;
+	}
+
+    /**
+     * Return employee last name.
+     *
+     * @return employee last name
+     */
+	public String getLastName() {
+		return this.lastName;
+	}
+
+    /**
+     * Return employee first name.
+     *
+     * @return employee first name
+     */
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+    /**
+     * Return employee job title.
+     *
+     * @return employee job title.
+     */
+	public String getJobTitle() {
+		return this.jobTitle;
+	}
+
+    /**
+     * Returns employee information formatted to a string.
+     *
+     * @return employee information as a string
+     */
+    @Override
+    public String toString() {
+        return "Employee: " + employeeNumber + ", " + firstName + " " + lastName + ", " + jobTitle;
+    }
+
+    /**
+     * Returns the amount of money earned by the employee over a specific time
      * period (based on the employee's status)
      *
      * @return amount of money earned
@@ -39,38 +85,29 @@ abstract class Employee {
     abstract double pay();
 
     /**
-     * Update the number of sick days left or taken by the employee based on the
-     * given amount (if there are enough sick days left)
+     * Updates the number of sick days left or taken by the employee based on
+     * the given amount (if there are enough sick days left)
      *
      * @param amount
      */
     abstract void useSickDay(double amount);
 
     /**
-     * Return the number of sick days left or taken by the employee
+     * Returns the number of sick days left or taken by the employee
      *
      * @return number of sick days left or taken
      */
     abstract double getSickDays();
 
     /**
-     * Reset the number of sick days left or taken by the employee to the
+     * Resets the number of sick days left or taken by the employee to the
      * default amount
      */
     abstract void resetSickDays();
 
     /**
-     * Print employee paystub (including information id, name, title, status,
+     * Prints employee's paystub (including information id, name, title, status,
      * and pay)
      */
     abstract void printPayStub();
-
-    /**
-     * Return employee information formatted to a string.
-     * @return employee information as a string
-     */
-    @Override
-    public String toString() {
-        return "Employee: " + employeeNumber + ", " + firstName + " " + lastName + ", " + jobTitle;
-    }
 }

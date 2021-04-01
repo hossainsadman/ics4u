@@ -116,7 +116,7 @@ public class PayrollRunner {
     }
 
     public static void printMenu() {
-        System.out.println("BCI INC. PAYROLL APPLICATION");
+        System.out.println("\nBCI INC. PAYROLL APPLICATION");
         System.out.println("----------------------------");
         System.out.println("Choose an option from the menu:");
         System.out.println("  1. Load staff list from file");
